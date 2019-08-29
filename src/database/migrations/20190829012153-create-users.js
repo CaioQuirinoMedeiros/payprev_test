@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      name: {
+      cpf: {
         type: Sequelize.STRING,
         allowNull: false
       },

@@ -3,7 +3,9 @@ import * as Yup from "yup";
 export default async (req, res, next) => {
   try {
     const schema = Yup.object().shape({
-      name: Yup.string().required("O nome é obrigatório"),
+      cpf: Yup.string()
+        .required("O cpf é obrigatório")
+        .length(11, "O cpf tem 11 digitos"),
       email: Yup.string()
         .email("O email não é um email válido")
         .required("O email é obrigatório"),

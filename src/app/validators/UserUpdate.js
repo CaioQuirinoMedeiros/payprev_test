@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export default async (req, res, next) => {
   try {
     const schema = Yup.object().shape({
-      name: Yup.string(),
+      cpf: Yup.string().length(11, "O cpf tem 11 digitos"),
       email: Yup.string().email("O email não é válido"),
       oldPassword: Yup.string().when("password", (password, field) =>
         password ? field.required("É necessário fornecer a senha atual") : field

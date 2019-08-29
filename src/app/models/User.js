@@ -4,11 +4,16 @@ import jwt from "jsonwebtoken";
 
 import authConfig from "../../config/auth";
 
+import { isValidCPF } from "../helpers/index";
+
 class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
+        cpf: {
+          type: Sequelize.STRING,
+          validate: { isValidCPF }
+        },
         email: {
           type: Sequelize.STRING,
           validate: { isEmail: true }
