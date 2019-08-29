@@ -22,6 +22,14 @@ module.exports = {
       },
       html_url: {
         type: Sequelize.STRING
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false
       }
     });
   },

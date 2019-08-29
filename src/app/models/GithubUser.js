@@ -12,7 +12,7 @@ class GithubUser extends Model {
       },
       {
         sequelize,
-        tableName: "gihub_users"
+        tableName: "github_users"
       }
     );
 
