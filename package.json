@@ -4,11 +4,15 @@
   "description": "Teste de desenvolvedor backend da payprev",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js"
   },
   "author": "Caio Quirino Medeiros",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "sucrase": "^3.10.1"
   }
 }
