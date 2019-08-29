@@ -13,7 +13,9 @@ class UserController {
 
       const user = await User.create(req.body);
 
-      return res.status(200).send(user);
+      const token = await user.generateJWT();
+
+      return res.status(200).send({ user, token });
     } catch (err) {
       console.log(err);
       return res.status(400).send({ error: "Erro ao criar usuário" });
