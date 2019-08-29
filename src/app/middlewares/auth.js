@@ -8,7 +8,7 @@ export default async (req, res, next) => {
     const authHeader = req.header("Authorization");
 
     if (!authHeader) {
-      return res.status(401).send({ error: "É necessário estar autenticado" });
+      return res.status(401).send({ error: "Autentique-se" });
     }
 
     const token = authHeader.replace("Bearer ", "");
@@ -18,7 +18,7 @@ export default async (req, res, next) => {
     const user = await User.findByPk(decoded.id);
 
     if (!user) {
-      throw new Error();
+      return res.status(401).send({ error: "Token inválido" });
     }
 
     req.userId = user.id;

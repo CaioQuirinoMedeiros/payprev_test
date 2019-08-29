@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import auth from "./app/middlewares/auth";
+import admin from "./app/middlewares/admin";
 
 import UserController from "./app/controllers/UserController";
 import SessionController from "./app/controllers/SessionController";
@@ -15,8 +16,10 @@ const routes = new Router();
 routes.post("/users", validateUserStore, UserController.store);
 routes.post("/sessions", validateSessionStore, SessionController.store);
 
-routes.put("/users", auth, validateUserUpdate, UserController.update);
+routes.use(auth);
 
-routes.get("/admin/github/users", GithubController.index);
+routes.put("/users", validateUserUpdate, UserController.update);
+
+routes.get("/github/users", admin, GithubController.index);
 
 export default routes;
