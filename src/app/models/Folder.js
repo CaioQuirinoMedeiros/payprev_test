@@ -4,10 +4,11 @@ class Folder extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: { type: Sequelize.STRING, unique: true, allowNull: false }
+        name: Sequelize.STRING
       },
       {
-        sequelize
+        sequelize,
+        tableName: "folders"
       }
     );
 
