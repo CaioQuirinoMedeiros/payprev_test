@@ -9,13 +9,19 @@ class User extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        email: Sequelize.STRING,
+        email: {
+          type: Sequelize.STRING,
+          validate: { isEmail: true }
+        },
         password: {
           type: Sequelize.VIRTUAL,
           validate: { len: [6, 127] }
         },
         password_hash: Sequelize.STRING,
-        admin: Sequelize.BOOLEAN
+        admin: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        }
       },
       {
         sequelize
