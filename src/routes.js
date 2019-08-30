@@ -39,5 +39,6 @@ routes.get("/folders", FolderController.index);
 routes.post("/folders", user, FolderController.store);
 routes.put("/folders/:id", user, FolderController.update);
 routes.delete("/folders/:id", user, FolderController.destroy);
+routes.post("/folders/:id", user, FolderController.addItem);
 
 export default routes;

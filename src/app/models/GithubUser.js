@@ -18,6 +18,12 @@ class GithubUser extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsToMany(models.Folder, {
+      through: "FolderItem"
+    });
+  }
 }
 
 export default GithubUser;

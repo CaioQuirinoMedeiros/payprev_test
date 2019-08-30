@@ -1,5 +1,6 @@
 import Folder from "../models/Folder";
 import User from "../models/User";
+import GithubUser from "../models/GithubUser";
 
 class FolderController {
   async index(req, res) {
@@ -36,10 +37,11 @@ class FolderController {
           .send({ error: "Você já tem uma pasta com esse nome" });
       }
 
-      const folder = await Folder.create({ name, user_id: user.id });
+      const folder = await Folder.create({ name, user_id: req.userId });
 
       return res.status(201).send(folder);
     } catch (err) {
+      console.log(err);
       return res.status(400).send({ error: "Erro ao criar pasta" });
     }
   }
@@ -89,6 +91,30 @@ class FolderController {
       return res.status(200).send();
     } catch (err) {
       return res.status(400).send({ error: "Erro ao deletar pasta" });
+    }
+  }
+
+  async addItem(req, res) {
+    const { id } = req.params;
+    const { githubUserId, tags } = req.body;
+
+    try {
+      const githubUser = await GithubUser.findByPk(githubUserId);
+
+      const folder = await Folder.findByPk(id, {
+        where: { user_id: req.userId }
+      });
+
+      const response = await folder.addItem(githubUser, {
+        through: { tags, status: "ok" }
+      });
+
+      return res.status(201).send(response);
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(400)
+        .send({ error: "Não foi possível adicionar na pasta" });
     }
   }
 }

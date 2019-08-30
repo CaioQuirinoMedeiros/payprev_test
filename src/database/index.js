@@ -5,8 +5,9 @@ import databaseConfig from "../config/database";
 import User from "../app/models/User";
 import GithubUser from "../app/models/GithubUser";
 import Folder from "../app/models/Folder";
+import Item from "../app/models/FolderItem";
 
-const models = [User, GithubUser, Folder];
+const models = [Item, User, GithubUser, Folder];
 
 class Database {
   constructor() {
