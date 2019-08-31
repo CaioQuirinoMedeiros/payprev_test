@@ -1,7 +1,6 @@
 import Folder from "../models/Folder";
 import User from "../models/User";
 import GithubUser from "../models/GithubUser";
-import Item from "../models/FolderItem";
 
 class FolderController {
   async index(req, res) {
