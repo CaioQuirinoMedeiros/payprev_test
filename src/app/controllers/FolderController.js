@@ -85,6 +85,10 @@ class FolderController {
         include: ["items"]
       });
 
+      if (!folder) {
+        return res.status(404).send({ error: "Pasta não encontrada" });
+      }
+
       return res.status(200).send(folder);
     } catch (err) {
       return res.status(400).send({ error: "Erro ao exibir pasta" });
@@ -116,6 +120,12 @@ class FolderController {
       const folder = await Folder.findByPk(id, {
         where: { user_id: req.userId }
       });
+
+      if (!folder || !githubUser) {
+        return res
+          .status(404)
+          .send({ error: "Pasta ou usuário não encontrado" });
+      }
 
       const response = await folder.addItem(githubUser, {
         through: { tags }
