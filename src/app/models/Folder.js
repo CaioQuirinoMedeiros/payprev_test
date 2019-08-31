@@ -18,7 +18,8 @@ class Folder extends Model {
     this.belongsTo(models.User, { foreignKey: "user_id", as: "owner" });
     this.belongsToMany(models.GithubUser, {
       through: "FolderItem",
-      as: "Item"
+      as: "items",
+      foreignKey: "folder_id"
     });
   }
 }

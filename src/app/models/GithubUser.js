@@ -21,7 +21,9 @@ class GithubUser extends Model {
 
   static associate(models) {
     this.belongsToMany(models.Folder, {
-      through: "FolderItem"
+      through: "FolderItem",
+      as: "folders",
+      foreignKey: "github_user_id"
     });
   }
 }

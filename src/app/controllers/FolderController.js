@@ -1,6 +1,7 @@
 import Folder from "../models/Folder";
 import User from "../models/User";
 import GithubUser from "../models/GithubUser";
+import Item from "../models/FolderItem";
 
 class FolderController {
   async index(req, res) {
@@ -41,7 +42,6 @@ class FolderController {
 
       return res.status(201).send(folder);
     } catch (err) {
-      console.log(err);
       return res.status(400).send({ error: "Erro ao criar pasta" });
     }
   }
@@ -79,6 +79,19 @@ class FolderController {
     }
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+    try {
+      const folder = await Folder.findByPk(id, {
+        include: ["items"]
+      });
+
+      return res.status(200).send(folder);
+    } catch (err) {
+      return res.status(400).send({ error: "Erro ao exibir pasta" });
+    }
+  }
+
   async destroy(req, res) {
     const { id } = req.params;
     try {
@@ -106,15 +119,41 @@ class FolderController {
       });
 
       const response = await folder.addItem(githubUser, {
-        through: { tags, status: "ok" }
+        through: { tags }
       });
 
       return res.status(201).send(response);
     } catch (err) {
-      console.log(err);
       return res
         .status(400)
         .send({ error: "Não foi possível adicionar na pasta" });
+    }
+  }
+
+  async removeItem(req, res) {
+    const { id } = req.params;
+    const { githubUserId } = req.body;
+
+    try {
+      const githubUser = await GithubUser.findByPk(githubUserId);
+
+      const folder = await Folder.findByPk(id, {
+        where: { user_id: req.userId }
+      });
+
+      const response = await folder.removeItem(githubUser, {
+        through: { id: githubUserId }
+      });
+
+      if (!response) {
+        return res.status(400).send({ error: "Item não encontrado" });
+      }
+
+      return res.status(200).send();
+    } catch (err) {
+      return res
+        .status(400)
+        .send({ error: "Não foi possível remover item da pasta" });
     }
   }
 }

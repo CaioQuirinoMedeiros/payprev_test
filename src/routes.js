@@ -38,7 +38,10 @@ routes.delete("/githubusers/:id", admin, GithubUserController.destroy);
 routes.get("/folders", FolderController.index);
 routes.post("/folders", user, FolderController.store);
 routes.put("/folders/:id", user, FolderController.update);
+routes.get("/folders/:id", user, FolderController.show);
 routes.delete("/folders/:id", user, FolderController.destroy);
-routes.post("/folders/:id", user, FolderController.addItem);
+
+routes.post("/folders/:id/add", user, FolderController.addItem);
+routes.delete("/folders/:id/remove", user, FolderController.removeItem);
 
 export default routes;
