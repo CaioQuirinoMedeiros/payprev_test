@@ -17,7 +17,6 @@ class UserController {
 
       return res.status(200).send({ user, token });
     } catch (err) {
-      console.log(err);
       return res.status(400).send({ error: "Erro ao criar usuário" });
     }
   }
@@ -54,7 +53,6 @@ class UserController {
 
       return res.status(200).send(user);
     } catch (err) {
-      console.log(err);
       return res.status(400).send({ error: "Erro ao editar usuário" });
     }
   }

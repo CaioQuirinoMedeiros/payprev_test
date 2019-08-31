@@ -33,7 +33,6 @@ class GitHubUserController {
 
       return res.status(200).send(githubUser);
     } catch (err) {
-      console.log(err);
       return res.status(400).send({ error: "Erro ao criar usuário do github" });
     }
   }
