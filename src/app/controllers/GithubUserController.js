@@ -23,6 +23,14 @@ class GitHubUserController {
 
       const { login, name, bio, location, html_url } = data;
 
+      const githubUserExists = await GithubUser.findOne({ where: { login } });
+
+      if (githubUserExists) {
+        return res
+          .status(400)
+          .send({ error: "Esse usuário do github já está adicionado" });
+      }
+
       const githubUser = await GithubUser.create({
         login,
         name,
@@ -31,7 +39,7 @@ class GitHubUserController {
         html_url
       });
 
-      return res.status(200).send(githubUser);
+      return res.status(201).send(githubUser);
     } catch (err) {
       return res.status(400).send({ error: "Erro ao criar usuário do github" });
     }

@@ -29,7 +29,9 @@ class FolderController {
     const { name } = req.body;
 
     try {
-      const folderExists = await Folder.findOne({ where: { name } });
+      const folderExists = await Folder.findOne({
+        where: { name, user_id: req.userId }
+      });
 
       if (folderExists) {
         return res
